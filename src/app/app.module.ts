@@ -1,3 +1,4 @@
+import { HighchartsChartComponent } from 'highcharts-angular';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -9,12 +10,13 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { AppService } from './app.component.service';
-import { ChartsModule, WavesModule } from 'angular-bootstrap-md'
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HighchartsChartComponent
   ],
   imports: [
     BrowserModule,
@@ -24,8 +26,7 @@ import { ChartsModule, WavesModule } from 'angular-bootstrap-md'
     AppRoutingModule,
     ReactiveFormsModule,
     MatInputModule,
-    ChartsModule,
-    WavesModule
+    
   ],
   providers: [AppService],
   bootstrap: [AppComponent]
