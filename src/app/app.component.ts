@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   dataChartForm: FormGroup;
 
   highcharts = Highcharts;
-  chartOptions = CHART_OPTIONS
+  chartOptions:any = CHART_OPTIONS
   dateTime: any;
 
   constructor(
@@ -40,13 +40,18 @@ export class AppComponent implements OnInit {
 
   submitForm() {
     this.hookApi();
+    this.chartOptions.series[0].data = [];
+    this.chartOptions.xAxis.categories = [];
     setInterval(this.hookApi.bind(this), this.dataChartForm.get('interval').value * 1000);
     setInterval(this.addTime.bind(this), 1000);
+    
   }
 
   hookApi() {
-    this.appService.getRandomNumber(this.dataChartForm.value).subscribe(val => {
-      console.log(val);
+    this.appService.getRandomNumber(this.dataChartForm.value).subscribe(res => {
+      this.chartOptions.series[0].data.push(res.body);
+      this.chartOptions.xAxis.categories.setData( this.datePipe.transform(new Date(), "HH:mm:ss"));
+      this.chartOptions.renderTo
     })
   }
 

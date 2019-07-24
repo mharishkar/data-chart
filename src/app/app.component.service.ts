@@ -8,10 +8,10 @@ export class AppService {
     private http: HttpClient
   ) { }
 
-  url = 'https://honoredfortunateprogrammers--five-nine.repl.co';
+  // url = 'https://honoredfortunateprogrammers--five-nine.repl.co';
+  url = 'http://localhost:8077/get-random-number';
 
   getRandomNumber(params) {
-    let body = { param: params};
-    return this.http.post(`${this.url}`, body, {observe: 'response'});
+    return this.http.get(`${this.url}`, {params, observe: 'response'});
   }
 }
