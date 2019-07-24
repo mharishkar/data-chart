@@ -1,0 +1,36 @@
+<h1>{{title}}</h1>
+<div class="form-section">
+  <form class="example-form" [formGroup]="dataChartForm" novalidate (ngSubmit)="submitForm(dataChartForm.value)">
+    <div class="form-input">
+      <mat-form-field class="example-full-width">
+        <input type="number" matInput placeholder="min" formControlName="minValue">
+      </mat-form-field>
+    </div>
+    <div class="form-input">
+      <mat-form-field class="example-full-width">
+        <input type="number" matInput placeholder="max" formControlName="maxValue">
+      </mat-form-field>
+    </div>
+    <div class="form-input">
+      <mat-form-field class="example-full-width">
+        <input type="number" matInput placeholder="interval" formControlName="interval">
+      </mat-form-field>
+    </div>
+    <div class="form-input">
+      <button class="btn-submit" [disabled]="dataChartForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div style="display: block">
+    <canvas mdbChart
+        [chartType]="chartType"
+        [datasets]="chartDatasets"
+        [labels]="chartLabels"
+        [colors]="chartColors"
+        [options]="chartOptions"
+        [legend]="true"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+    </canvas>
+  </div>

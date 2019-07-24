@@ -1,0 +1,17 @@
+.form-section {
+    .form-input {
+        display: inline-block;
+        margin: 10px;
+        .btn-submit {
+            background-color: #39396b;
+            padding: 8px;
+            outline: none;
+            cursor: pointer;
+            color: #f9f8f6;
+            &:disabled {
+                cursor: not-allowed;
+                opacity: 0.5;
+            }
+        }
+    }
+}
