@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dataChartForm = this.fb.group({
+    this.dataChartForm = this.fb.group({   
       minValue: ['', [Validators.required, Validators.max(20000)]],
       maxValue: ['', [Validators.required, Validators.max(20000)]],
       interval: ['', [Validators.required, Validators.max(5000)]]
@@ -44,6 +44,10 @@ export class AppComponent implements OnInit {
   }
 
   submitForm() {
+    
+    this.chartOptions.series[0].data = [];
+     this.chartOptions.xAxis.categories = [];
+     this.updateFlag = true;
     this.hookApi();
     setInterval(this.hookApi.bind(this), this.dataChartForm.get('interval').value * 1000);
     setInterval(this.addTime.bind(this), 1000);
