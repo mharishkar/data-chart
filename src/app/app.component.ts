@@ -3,9 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppService } from './app.component.service';
 import * as Highcharts from 'highcharts';
 import { DatePipe } from '@angular/common';
-import { CHART_OPTIONS } from './app.config';
-
-
 
 @Component({
   selector: 'app-root',
@@ -19,9 +16,18 @@ export class AppComponent implements OnInit {
   title = 'Welcome to Data Chart - Demo';
   dataChartForm: FormGroup;
 
-  highcharts = Highcharts;
-  chartOptions:any = CHART_OPTIONS
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: Highcharts.Options = {
+    xAxis: {
+      categories: []
+    },
+    series: [{
+      data: [],
+      type: 'area'
+    }]
+  };
   dateTime: any;
+  updateFlag: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -35,27 +41,23 @@ export class AppComponent implements OnInit {
       maxValue: ['', [Validators.required, Validators.max(20000)]],
       interval: ['', [Validators.required, Validators.max(5000)]]
     });
-    console.log(this.chartOptions);
   }
 
   submitForm() {
     this.hookApi();
-    this.chartOptions.series[0].data = [];
-    this.chartOptions.xAxis.categories = [];
     setInterval(this.hookApi.bind(this), this.dataChartForm.get('interval').value * 1000);
     setInterval(this.addTime.bind(this), 1000);
-    
   }
 
   hookApi() {
     this.appService.getRandomNumber(this.dataChartForm.value).subscribe(res => {
-      this.chartOptions.series[0].data.push(res.body);
-      this.chartOptions.xAxis.categories.setData( this.datePipe.transform(new Date(), "HH:mm:ss"));
-      this.chartOptions.renderTo
-    })
+      this.chartOptions.xAxis.categories.push(this.datePipe.transform(new Date(), 'HH:mm:ss'));
+      this.chartOptions.series[0].data.push(parseInt(res.body));
+      this.updateFlag = true;
+    });
   }
 
   addTime() {
-    this.dateTime = this.datePipe.transform(new Date(), "dd-MM-yy HH:mm:ss");
+    this.dateTime = this.datePipe.transform(new Date(), 'dd-MM-yy HH:mm:ss');
   }
 }
