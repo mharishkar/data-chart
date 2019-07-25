@@ -1,4 +1,5 @@
-#Demo
+
+# Demo
 
 [Demo Click here](https://stackblitz.com/github/mharishkar/data-chart)
 
